@@ -5,12 +5,16 @@
 
 
 #include <Arduino.h>
+#include "Perifericos.h"
 
 
 void setup() {
-    Serial.begin(115200);
+    if(DEBUG)Serial.begin(115200);
+    conectaWiFi();
+
+    
 }
 
 void loop() {
-
+    delay(2000);
 }
