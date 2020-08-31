@@ -51,9 +51,10 @@ void leeArchivo(fs::FS &fs, const char *path)
 
 //-------------------------------------------PANTALLA----------------------------------------------
 
-void inicializaPantalla(Adafruit_NeoPixel pPantalla)
+void inicializaPantalla(CRGB* leds)
 {
-    pPantalla.begin();
+    FastLED.addLeds<WS2812B, PANTPIN, GRB>(leds, NUMPIXELS);
+    FastLED.setBrightness(BRILLO);
 }
 
 int desplazaPixel(int posicion, int xOffs, int yOffs)
@@ -113,30 +114,18 @@ void borrarPixeles(CRGB* leds)
     }
 }
 
-/*Pinta en la pantalla un número(se debe hacer show después)
+/*Coloca en ram de la pantalla un número(se debe hacer show después)
     Números 1-9 -> Su correspondiente número
     Número 10 -> Caracter blanco(Para borrar)
     Número desconocido -> !
 */
 void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 {
-    short cero[12] = {0, 1, 2, 3, 4, 27, 31, 32, 33, 34, 35, 36};
-    int uno[8] = {0, 4, 27, 28, 29, 30, 31, 36};
-    int dos[11] = {0, 2, 3, 4, 27, 29, 31, 32, 33, 34, 36};
-    int tres[11] = {0, 2, 4, 27, 29, 31, 32, 33, 34, 35, 36};
-    int cuatro[9] = {0, 1, 2, 29, 32, 33, 34, 35, 36};
-    int cinco[11] = {0, 1, 2, 4, 27, 29, 31, 32, 34, 35, 36};
-    int seis[12] = {0, 1, 2, 3, 4, 27, 29, 31, 32, 34, 35, 36};
-    int siete[7] = {0, 3, 4, 29, 31, 32, 33};
-    int ocho[13] = {0, 1, 2, 3, 4, 27, 29, 31, 32, 33, 34, 35, 36};
-    int nueve[10] = {0, 1, 2, 29, 31, 32, 33, 34, 35, 36};
-    int blanco[15] = {0, 1, 2, 3, 4, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36};
-    int excl[4] = {27, 29, 30, 31};
-
     switch (num)
     {
     case 0:
     {
+        int cero[12] = {0, 1, 2, 3, 4, 27, 31, 32, 33, 34, 35, 36};
         for (int i = 0; i < 12; i++)
         {
             leds[desplazaPixel(cero[i], xOffs, yOffs)] = color;
@@ -146,6 +135,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 1:
     {
+        int uno[8] = {0, 4, 27, 28, 29, 30, 31, 36};
         for (int i = 0; i < 8; i++)
         {
             leds[desplazaPixel(uno[i], xOffs, yOffs)] = color;
@@ -155,6 +145,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 2:
     {
+        int dos[11] = {0, 2, 3, 4, 27, 29, 31, 32, 33, 34, 36};
         for (int i = 0; i < 11; i++)
         {
             leds[desplazaPixel(dos[i], xOffs, yOffs)] = color;
@@ -164,6 +155,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 3:
     {
+        int tres[11] = {0, 2, 4, 27, 29, 31, 32, 33, 34, 35, 36};
         for (int i = 0; i < 11; i++)
         {
             leds[desplazaPixel(tres[i], xOffs, yOffs)] = color;
@@ -173,6 +165,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 4:
     {
+        int cuatro[9] = {0, 1, 2, 29, 32, 33, 34, 35, 36};
         for (int i = 0; i < 9; i++)
         {
             leds[desplazaPixel(cuatro[i], xOffs, yOffs)] = color;
@@ -182,6 +175,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 5:
     {
+        int cinco[11] = {0, 1, 2, 4, 27, 29, 31, 32, 34, 35, 36};
         for (int i = 0; i < 11; i++)
         {
             leds[desplazaPixel(cinco[i], xOffs, yOffs)] = color;
@@ -191,6 +185,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 6:
     {
+        int seis[12] = {0, 1, 2, 3, 4, 27, 29, 31, 32, 34, 35, 36};
         for (int i = 0; i < 12; i++)
         {
             leds[desplazaPixel(seis[i], xOffs, yOffs)] = color;
@@ -200,6 +195,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 7:
     {
+        int siete[7] = {0, 3, 4, 29, 31, 32, 33};
         for (int i = 0; i < 7; i++)
         {
             leds[desplazaPixel(siete[i], xOffs, yOffs)] = color;
@@ -209,6 +205,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 8:
     {
+        int ocho[13] = {0, 1, 2, 3, 4, 27, 29, 31, 32, 33, 34, 35, 36};
         for (int i = 0; i < 13; i++)
         {
             leds[desplazaPixel(ocho[i], xOffs, yOffs)] = color;
@@ -218,6 +215,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 9:
     {
+        int nueve[10] = {0, 1, 2, 29, 31, 32, 33, 34, 35, 36};
         for (int i = 0; i < 10; i++)
         {
             leds[desplazaPixel(nueve[i], xOffs, yOffs)] = color;
@@ -227,6 +225,7 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     case 10:
     {
+        int blanco[15] = {0, 1, 2, 3, 4, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36};
         for (int i = 0; i < 15; i++)
         {
             leds[desplazaPixel(blanco[i], xOffs, yOffs)] = color;
@@ -236,6 +235,232 @@ void pintarNUM(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
 
     default: //Si no se corresponde con ningún número dibuja una exclamación
     {
+        int excl[4] = {27, 29, 30, 31};
+        for (int i = 0; i < 4; i++)
+        {
+            leds[desplazaPixel(excl[i], xOffs, yOffs)] = color;
+        }
+        break;
+    }
+    }
+}
+
+/*Coloca en ram de la pantalla una figura de tiempo atmosférico según el selector
+    0 -> Soleado
+    1 -> Sol y nubes
+    2 -> Nublado
+    3 -> Lluvia leve
+    4 -> Lluvia fuerte
+    5 -> Tormenta
+    6 -> Tormenta y lluvia
+    7 -> Granizo / nieve
+    8 -> Niebla o condiciones adversas
+*/
+void pintarTIEMPO(int selector, CRGB *leds, int xOffs, int yOffs)
+{
+    switch (selector)
+    {
+    case 0:
+    {
+        int solPos[10] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 63};
+        for (int i = 0; i < 10; i++)
+        {
+            leds[desplazaPixel(solPos[i], xOffs, yOffs)] = 0xEFD600;
+        }
+        break;
+    }
+
+    case 1:
+    {
+        int solPos[10] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 63};
+        int nubPos[7] = {2, 3, 30, 33, 62, 63, 64};
+        for (int i = 0; i < 10; i++)
+        {
+            leds[desplazaPixel(solPos[i], xOffs, yOffs)] = 0xEFD600; //Amarillo
+        }
+        for (int i = 0; i < 7; i++)
+        {
+            leds[desplazaPixel(nubPos[i], xOffs, yOffs)] = 0x4B4B4B; //Gris
+        }
+        break;
+    }
+
+    case 2:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x4B4B4B; //Gris
+        }
+        break;
+    }
+
+    case 3:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        int gotPos[2] = {29, 63};
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x4B4B4B; //Gris
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            leds[desplazaPixel(gotPos[i], xOffs, yOffs)] = 0x30AAFF; //Azul
+        }
+        break;
+    }
+
+    case 4:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        int gotPos[8] = {0, 3, 7, 29, 31, 37, 40, 63};
+        
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x4B4B4B; //Gris
+        }
+        for (int i = 0; i < 8; i++)
+        {
+            leds[desplazaPixel(gotPos[i], xOffs, yOffs)] = 0x30AAFF; //Azul
+        }
+        break;
+    }
+
+    case 5:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        int rayPos[4] = {28, 30, 34, 36};
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x4B4B4B; //Gris
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            leds[desplazaPixel(rayPos[i], xOffs, yOffs)] = 0xEFD600; //Amarillo
+        }
+        break;
+    }
+
+    case 6:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        int rayPos[4] = {28, 30, 34, 36};
+        int gotPos[4] = {2, 5, 39, 63};
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x4B4B4B; //Gris
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            leds[desplazaPixel(rayPos[i], xOffs, yOffs)] = 0xEFD600; //Amarillo
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            leds[desplazaPixel(gotPos[i], xOffs, yOffs)] = 0x30AAFF; //Azul
+        }
+
+        break;
+    }
+
+    case 7:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        int nievPos[4] = {1, 29, 31, 33};
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x2D2D2D; //Gris oscuro
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            leds[desplazaPixel(nievPos[i], xOffs, yOffs)] = 0xFFFFFF; //Blanco
+        }
+        break;
+    }
+
+    case 8:
+    {
+        int nublPos[12] = {0, 1, 2, 3, 29, 30, 31, 32, 33, 62, 63, 64};
+        int blanPos[6] = {0, 2, 29, 31, 32, 63};
+        for (int i = 0; i < 12; i++)
+        {
+            leds[desplazaPixel(nublPos[i], xOffs, yOffs)] = 0x2D2D2D; //Gris oscuro
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            leds[desplazaPixel(blanPos[i], xOffs, yOffs)] = 0xFFFFFF; //Blanco
+        }
+        break;
+    }
+
+        
+    default:
+        break;
+    }
+}
+
+
+/*Coloca en ram de la pantalla una figura de banderín según el selector (tamaño NUM)
+    0 -> Viento medio
+    1 -> Viento fuerte
+*/
+void pintarVIENTO(int selector, CRGB *leds, int xOffs, int yOffs)
+{
+    switch (selector)
+    {
+    case 0:
+    {
+        int paloPos[5] = {0, 1, 2, 3, 4};
+        int bandPos = 31;
+        for (int i = 0; i < 5; i++)
+        {
+            leds[desplazaPixel(paloPos[i], xOffs, yOffs)] = 0x98705F;   //Marrón
+        }
+        leds[desplazaPixel(bandPos, xOffs, yOffs)] = 0xE30E0E;  //Rojo
+        break;
+    }
+
+    case 1:
+    {
+        int paloPos[5] = {0, 1, 2, 3, 4};
+        int bandPos[3] = {30, 31, 32};
+        for (int i = 0; i < 5; i++)
+        {
+            leds[desplazaPixel(paloPos[i], xOffs, yOffs)] = 0x98705F;   //Marrón
+        }
+        leds[desplazaPixel(bandPos[0], xOffs, yOffs)] = 0xE30E0E;  //Rojo
+        leds[desplazaPixel(bandPos[1], xOffs, yOffs)] = 0xE30E0E;
+        leds[desplazaPixel(bandPos[2], xOffs, yOffs)] = 0xE30E0E;
+        break;
+    }
+    
+    default:
+        break;
+    }
+}
+
+
+/*Coloca en ram de la pantalla un icono(se debe hacer show después)
+    Números 0 -> %
+    Número desconocido -> !
+*/
+void pintarICONO(int num, CRGB color, CRGB *leds, int xOffs, int yOffs)
+{
+
+    switch (num)
+    {
+    case 0:
+    {
+        int porcen[7] = {0, 3, 4, 29, 32, 33, 36};
+        for (int i = 0; i < 7; i++)
+        {
+            leds[desplazaPixel(porcen[i], xOffs, yOffs)] = color;
+        }
+        break;
+    }
+
+    default: //Si no se corresponde con ningún número dibuja una exclamación
+    {
+        int excl[4] = {27, 29, 30, 31};
         for (int i = 0; i < 4; i++)
         {
             leds[desplazaPixel(excl[i], xOffs, yOffs)] = color;
@@ -324,6 +549,17 @@ void imprimirFechaRTC(RtcDateTime dt)
     Serial.println(dt.Second());
 }
 
+//Comprueba  si ha transcurrido el tiempo suficiente desde la última actividad para irse a dormir
+void compruebaDormir(unsigned long millisUltimaAct, CRGB *leds)
+{
+    if (PUEDE_DORMIR && (millis() - millisUltimaAct >= TIEMPO_HASTA_SLEEP_MILLIS))
+    {
+        borrarPixeles(leds);
+        FastLED.show();
+        Serial.println("YÉNDOSE A DORMIR");
+        esp_deep_sleep_start();
+    }
+}
 //----------------------------------------HUMEDAD Y TEMPERATURA-------------------------------------------
 
 void inicializaHumTemp(AHT10 myAHT10)
@@ -346,3 +582,6 @@ float obtenerHumedad(AHT10 myAHT10)
 {
     return myAHT10.readHumidity();
 }
+
+//------------------------------------------------BOTONES-----------------------------------------------
+
