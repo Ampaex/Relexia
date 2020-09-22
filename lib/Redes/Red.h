@@ -1,10 +1,9 @@
 //          CABECERA LIBRERÍA DE CONTROL DE REDES RELEXIA
 //                Autor: Antonio Vázquez Pérez
-//    Fecha de creación: 7/06/2020
-//       Última versión: 7/06/2020
 
 #define API_FECHAYHORA "http://worldtimeapi.org/api/timezone/Europe/Madrid"
 #define API_TIEMPO "https://api.openweathermap.org/data/2.5/weather?q=Zafra,es&appid=73d881d4df6f3497a0a44d789d3aabe4"
+#define API_PREVISION "https://api.openweathermap.org/data/2.5/onecall?lat=38.424646&lon=-6.417603&exclude=current,hourly,minutely&appid=73d881d4df6f3497a0a44d789d3aabe4&units=metric" 
 
 //LIBRERÍAS
 #include <HTTPClient.h>
@@ -18,11 +17,13 @@
 //INTERFAZ ALEXA
 
 #include "fauxmoESP.h"
-void inicializaDispositivoAlexa(fauxmoESP conexionAlexa);
+void inicializaAlexa(fauxmoESP* conexionAlexa);
 
 //Devuelve StaticJsonDocument con la fecha y hora; NULL si falla
 StaticJsonDocument<5000> obtenerFecha();
-DynamicJsonDocument obtenerMeteo();
+
+//@param dia 0 para el día de hoy y 1 para mañana
+DynamicJsonDocument obtenerMeteo(int dia);
 
 //WiFi
 //Conecta con el wifi indicado en la configuración

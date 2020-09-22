@@ -1,7 +1,5 @@
 //          CÓDIGO FUENTE LIBRERÍA DE CONTROL DE PERIFÉRICOS RELEXIA
 //                Autor: Antonio Vázquez Pérez
-//    Fecha de creación: 20/03/2020
-//       Última versión: 7/06/2020
 
 #include "Perifericos.h"
 #include "Red.h"
@@ -51,12 +49,17 @@ void leeArchivo(fs::FS &fs, const char *path)
 
 //-------------------------------------------PANTALLA----------------------------------------------
 
-void inicializaPantalla(CRGB* leds)
+void inicializaPantalla(CRGB* leds, int brillo)
 {
     FastLED.addLeds<WS2812B, PANTPIN, GRB>(leds, NUMPIXELS);
-    FastLED.setBrightness(BRILLO);
+    FastLED.setBrightness(brillo);
 }
 
+/*Devuelve la nueva posición que tendría que tener el píxel una vez movido en los ejes cartesianos
+    @param posicion Pocición original del píxel en la tira led
+    @param xOffs Desplazamiento en el eje X
+    @param yOffs Desplazamiento en el eje Y
+*/
 int desplazaPixel(int posicion, int xOffs, int yOffs)
 {
     int tempPos = posicion;
@@ -583,5 +586,4 @@ float obtenerHumedad(AHT10 myAHT10)
     return myAHT10.readHumidity();
 }
 
-//------------------------------------------------BOTONES-----------------------------------------------
 
