@@ -2,8 +2,8 @@
 //                Autor: Antonio Vázquez Pérez
 
 #define API_FECHAYHORA "http://worldtimeapi.org/api/timezone/Europe/Madrid"
-#define API_TIEMPO "https://api.openweathermap.org/data/2.5/weather?q=Zafra,es&appid=73d881d4df6f3497a0a44d789d3aabe4"
-#define API_PREVISION "https://api.openweathermap.org/data/2.5/onecall?lat=38.424646&lon=-6.417603&exclude=current,hourly,minutely&appid=73d881d4df6f3497a0a44d789d3aabe4&units=metric" 
+#define API_TIEMPO "https://api.openweathermap.org/data/2.5/weather?q=Zafra,es&appid="
+#define API_PREVISION "https://api.openweathermap.org/data/2.5/onecall?lat=38.424646&lon=-6.417603&exclude=current,hourly,minutely&appid=&units=metric" 
 
 //LIBRERÍAS
 #include <HTTPClient.h>
