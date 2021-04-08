@@ -1,6 +1,8 @@
 ![Logo relexia](./images/Relexia_logo.png)
 ***
-![Imagen conceptual](./images/Previsualización.jpg)
+<p align="center">
+  <img width="850" height="855" src="./images/Imagen_principal.png">
+</p>
 
 ### [Enlace: DOCUMENTO FINAL DEL PROYECTO](./TFG_Relexia.pdf)
 
